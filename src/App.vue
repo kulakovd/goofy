@@ -18,7 +18,6 @@ import Sidebar from './components/Sidebar/Sidebar.vue'
   display: flex;
   align-items: stretch;
   height: 100%;
-  gap: 24px;
 }
 
 .app-content {

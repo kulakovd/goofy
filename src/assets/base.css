@@ -36,7 +36,8 @@
   --section-gap: 160px;
 
   --sidebar-color: #fafafa;
-  --color-hover: rgba(0, 0, 0, 0.1);
+  --button-hover-color: #db4c3f;
+  --menu-hover-bg: rgba(0, 0, 0, 0.1);
 }
 
 @media (prefers-color-scheme: dark) {

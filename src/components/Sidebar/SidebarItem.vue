@@ -19,6 +19,6 @@
 }
 
 .sidebar-item:hover {
-  background-color: var(--color-hover);
+  background-color: var(--menu-hover-bg);
 }
 </style>
