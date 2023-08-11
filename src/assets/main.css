@@ -7,6 +7,12 @@
   font-weight: normal;
 }
 
+input, textarea {
+  all: unset;
+  width: 100%;
+  display: block;
+}
+
 a,
 .green {
   text-decoration: none;

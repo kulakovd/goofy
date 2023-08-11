@@ -40,6 +40,7 @@ const project = {
 
 <style scoped>
 .head {
+  z-index: 1;
   position: sticky;
   top: 0;
   background: white;

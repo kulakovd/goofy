@@ -1,31 +1,45 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
 import type { Task } from '@/domain';
+import { useTasksStore } from '@/stores/tasks';
+import Button from '@/components/Button.vue';
 
 defineProps<{
   task: Task;
 }>()
+
+const tasksStore = useTasksStore();
+const { editTask, toggleComplete } = tasksStore;
 </script>
 
 <template>
-  <div class="task">
-    <label class="label">
-      <input 
-        class="hidden-checkbox" 
-        type="checkbox" 
-        hidden 
-        v-model="task.completed" 
-      />
-      <span class="checkbox" />
-    </label>
+  <div class="task" @click="toggleComplete(task.id)">
     <div class="flex">
-      <span 
-        class="title" 
-        :class="{ 'line-through': task.completed }"
-      >
-        {{ task.title }}
-      </span>
-      <span v-if="task.description !== null">{{ task.description }}</span>
+      <div class="head">
+        <label class="label">
+          <input 
+            class="hidden-checkbox" 
+            type="checkbox" 
+            hidden 
+            v-model="task.completed" 
+          />
+          <span class="checkbox" />
+        </label>
+        <span 
+          class="title" 
+          :class="{ 'line-through': task.completed }"
+        >
+          {{ task.title }}
+        </span>
+      </div>
+      <span class="description" v-if="task.description !== null">{{ task.description }}</span>
     </div>
+    <Button
+      class="edit-button"
+      @click.stop="editTask(task.id)"
+    >
+      Edit
+    </Button>
   </div>
 </template>
 
@@ -36,6 +50,23 @@ defineProps<{
     padding: 4px;
     border-radius: 4px;
     cursor: pointer;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .edit-button {
+    opacity: 0;
+  }
+
+  .task:hover .edit-button {
+    opacity: 1;
+  }
+
+  .head {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex: 1;
   }
 
   .task:hover {
@@ -47,9 +78,8 @@ defineProps<{
   }
 
   .checkbox {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: relative;
+    display: block;
     width: 16px;
     height: 16px;
     border: 1px solid var(--color-text);
@@ -58,6 +88,10 @@ defineProps<{
   }
 
   .checkbox::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     content: '✓';
     display: block;
     font-size: 0.7em;
@@ -88,6 +122,10 @@ defineProps<{
 
   .title {
     font-weight: bold;
+  }
+
+  .description {
+    padding-inline-start: 24px;
   }
 
   .line-through {

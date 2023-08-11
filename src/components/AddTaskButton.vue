@@ -1,7 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useTasksStore } from '@/stores/tasks';
+
+const { addTask } = useTasksStore();
+</script>
 
 <template>
-  <button>
+  <button type="button" @click="addTask">
     + Add task
   </button>
 </template>
@@ -19,5 +23,9 @@
 
   button:hover {
     color: var(--button-hover-color);
+  }
+
+  button:active {
+    transform: var(--click-effect);
   }
 </style>

@@ -21,4 +21,8 @@
 .sidebar-item:hover {
   background-color: var(--menu-hover-bg);
 }
+
+.sidebar-item:active {
+  transform: var(--click-effect);
+}
 </style>

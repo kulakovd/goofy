@@ -23,6 +23,8 @@
 
 /* semantic color variables for this project */
 :root {
+  --primary-color: #db4c3f;
+
   --color-background: var(--vt-c-white);
   --color-background-soft: var(--vt-c-white-soft);
   --color-background-mute: var(--vt-c-white-mute);
@@ -36,8 +38,10 @@
   --section-gap: 160px;
 
   --sidebar-color: #fafafa;
-  --button-hover-color: #db4c3f;
-  --menu-hover-bg: rgba(0, 0, 0, 0.1);
+  --button-hover-color: var(--primary-color);
+  --menu-hover-bg: rgba(200, 200, 200, 0.2);
+
+  --click-effect: scale(0.95);
 }
 
 @media (prefers-color-scheme: dark) {
