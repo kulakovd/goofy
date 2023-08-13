@@ -15,6 +15,7 @@ main {
 }
 
 .page {
+  position: relative;
   padding: 24px;
   margin: 0 auto;
   max-width: 640px;

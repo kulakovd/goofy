@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { projectsPalette } from '@/assets/projects-palette';
+import { computed } from 'vue'
+import { projectsPalette } from '@/assets/projects-palette'
 
 const props = defineProps<{
-  color: keyof typeof projectsPalette;
+  color: keyof typeof projectsPalette
   size?: 'small' | 'large'
 }>()
 
@@ -13,11 +13,7 @@ const bgColorCode = computed(() => {
 </script>
 
 <template>
-  <div 
-    class="color-circle" 
-    :style="{ backgroundColor: bgColorCode }" 
-    :size="props.size"
-  />
+  <div class="color-circle" :style="{ backgroundColor: bgColorCode }" :size="props.size" />
 </template>
 
 <style scoped>
@@ -29,7 +25,7 @@ const bgColorCode = computed(() => {
   margin-right: 8px;
 }
 
-.color-circle[size="large"] {
+.color-circle[size='large'] {
   width: 12px;
   height: 12px;
 }

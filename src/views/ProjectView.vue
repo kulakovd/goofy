@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import Page from '@/components/Page.vue';
-import PageTitle from '@/components/PageTitle.vue';
-import AddTaskButton from '@/components/AddTaskButton.vue';
-import TaskList from '@/components/Task/TaskList.vue';
-import ProjectColor from '@/components/ProjectColor.vue';
+import Page from '@/components/Page.vue'
+import PageTitle from '@/components/PageTitle.vue'
+import AddTaskButton from '@/components/AddTaskButton.vue'
+import TaskList from '@/components/Task/TaskList.vue'
+import ProjectColor from '@/components/ProjectColor.vue'
 
 const project = {
   id: '1',
@@ -18,7 +18,7 @@ const project = {
     aliquam ultrices, nisl nunc aliquet nunc, vitae ultricies 
     nisl nunc vitae nunc. Sed euismod, diam id aliquam 
   `
-} as const;
+} as const
 </script>
 
 <template>

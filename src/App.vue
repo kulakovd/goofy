@@ -8,6 +8,7 @@ import Sidebar from './components/Sidebar/Sidebar.vue'
     <Sidebar />
 
     <div class="app-content">
+      <div id="app-teleport"></div>
       <RouterView />
     </div>
   </div>
@@ -21,6 +22,11 @@ import Sidebar from './components/Sidebar/Sidebar.vue'
 }
 
 .app-content {
+  position: relative;
   flex: 1;
+}
+.app-teleport {
+  position: absolute;
+  inset: 0;
 }
 </style>

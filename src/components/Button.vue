@@ -1,17 +1,12 @@
 <script setup lang="ts">
 defineProps<{
-  type?: 'primary' | 'secondary' | 'danger';
-  onClick?: () => void;
+  type?: 'primary' | 'secondary' | 'danger'
+  onClick?: () => void
 }>()
 </script>
 
 <template>
-  <button
-    type="button" 
-    class="button" 
-    :class="type ?? 'primary'" 
-    @click="onClick"
-  >
+  <button type="button" class="button" :class="type ?? 'primary'" @click="onClick">
     <slot />
   </button>
 </template>

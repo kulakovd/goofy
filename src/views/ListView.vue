@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import Page from '@/components/Page.vue';
-import AddTaskButton from '@/components/AddTaskButton.vue';
-import PageTitle from '@/components/PageTitle.vue';
-import TaskList from '@/components/Task/TaskList.vue';
+import Page from '@/components/Page.vue'
+import AddTaskButton from '@/components/AddTaskButton.vue'
+import PageTitle from '@/components/PageTitle.vue'
+import TaskList from '@/components/Task/TaskList.vue'
 
 const list = {
   id: 'today',
-  title: 'Today',
+  title: 'Today'
 }
 </script>
 

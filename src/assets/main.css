@@ -7,7 +7,8 @@
   font-weight: normal;
 }
 
-input, textarea {
+input,
+textarea {
   all: unset;
   width: 100%;
   display: block;

@@ -1,134 +1,167 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
-import type { Task } from '@/domain';
-import { useTasksStore } from '@/stores/tasks';
-import Button from '@/components/Button.vue';
+import type { Task } from '@/domain'
+import { useTasksStore } from '@/stores/tasks'
+import Button from '@/components/Button.vue'
+import Drag from '@/components/Task/Drag.vue'
+import { ref } from 'vue'
 
-defineProps<{
-  task: Task;
+const props = defineProps<{
+  task: Task
 }>()
 
-const tasksStore = useTasksStore();
-const { editTask, toggleComplete } = tasksStore;
+const tasksStore = useTasksStore()
+const { editTask, toggleComplete } = tasksStore
+
+const draggable = ref(false)
+const dragging = ref(false)
+const ghost = ref(false)
+
+function dragEnd(ev: DragEvent) {
+  dragging.value = false
+  draggable.value = false
+  ghost.value = false
+}
 </script>
 
 <template>
-  <div class="task" @click="toggleComplete(task.id)">
-    <div class="flex">
-      <div class="head">
-        <label class="label">
-          <input 
-            class="hidden-checkbox" 
-            type="checkbox" 
-            hidden 
-            v-model="task.completed" 
-          />
-          <span class="checkbox" />
-        </label>
-        <span 
-          class="title" 
-          :class="{ 'line-through': task.completed }"
-        >
-          {{ task.title }}
-        </span>
+  <div
+    class="task-view"
+    :draggable="draggable"
+    :class="{
+      'drag-chosen': draggable,
+      dragging: dragging,
+      ghost: ghost
+    }"
+    @dragstart="dragging = true"
+    @drag="ghost = true"
+    @dragend="dragEnd"
+  >
+    <Drag
+      class="task-view-drag-handle"
+      @mousedown="draggable = true"
+      @mouseup="draggable = false"
+    />
+    <div class="task" @click="toggleComplete(task.id)">
+      <div class="flex">
+        <div class="head">
+          <label class="label">
+            <input class="hidden-checkbox" type="checkbox" hidden v-model="task.completed" />
+            <span class="checkbox" />
+          </label>
+          <span class="title" :class="{ 'line-through': task.completed }">
+            {{ task.title }}
+          </span>
+        </div>
+        <span class="description" v-if="task.description !== null">{{ task.description }}</span>
       </div>
-      <span class="description" v-if="task.description !== null">{{ task.description }}</span>
+      <Button class="edit-button" @click.stop="editTask(task.id)"> Edit </Button>
     </div>
-    <Button
-      class="edit-button"
-      @click.stop="editTask(task.id)"
-    >
-      Edit
-    </Button>
   </div>
 </template>
 
 <style scoped>
-  .task {
-    display: flex;
-    gap: 8px;
-    padding: 4px;
-    border-radius: 4px;
-    cursor: pointer;
-    align-items: flex-start;
-    justify-content: space-between;
-  }
+.task-view {
+  position: relative;
+  border-radius: 4px;
+}
 
-  .edit-button {
-    opacity: 0;
-  }
+.task-view:hover .drag {
+  opacity: 1;
+}
 
-  .task:hover .edit-button {
-    opacity: 1;
-  }
+.dragging {
+  background: white;
+}
 
-  .head {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    flex: 1;
-  }
+.ghost {
+  opacity: 0.1;
+}
 
-  .task:hover {
-    background-color: var(--menu-hover-bg);
-  }
+.task {
+  display: flex;
+  gap: 8px;
+  padding: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  align-items: flex-start;
+  justify-content: space-between;
+}
 
-  .label {
-    padding-block: 4px;
-  }
+.edit-button {
+  opacity: 0;
+}
 
-  .checkbox {
-    position: relative;
-    display: block;
-    width: 16px;
-    height: 16px;
-    border: 1px solid var(--color-text);
-    border-radius: 100%;
-    cursor: pointer;
-  }
+.task:hover .edit-button {
+  opacity: 1;
+}
 
-  .checkbox::after {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    content: '✓';
-    display: block;
-    font-size: 0.7em;
-    font-weight: bold;
-    opacity: 0;
-    transition: opacity 100ms ease-in-out;
-  }
+.head {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex: 1;
+}
 
-  .hidden-checkbox:checked + .checkbox {
-    background: var(--button-hover-color);
-    border-color: var(--button-hover-color);
-  }
+.task:hover {
+  background-color: var(--menu-hover-bg);
+}
 
-  .hidden-checkbox:checked + .checkbox::after {
-    color: white;
-    opacity: 1;
-  }
-  
-  .task:hover .hidden-checkbox:not(:checked) + .checkbox::after {
-    color: var(--color-text);
-    opacity: 1;
-  }
+.label {
+  padding-block: 4px;
+}
 
-  .flex {
-    display: flex;
-    flex-direction: column;
-  }
+.checkbox {
+  position: relative;
+  display: block;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--color-text);
+  border-radius: 100%;
+  cursor: pointer;
+}
 
-  .title {
-    font-weight: bold;
-  }
+.checkbox::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  content: '✓';
+  display: block;
+  font-size: 0.7em;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 100ms ease-in-out;
+}
 
-  .description {
-    padding-inline-start: 24px;
-  }
+.hidden-checkbox:checked + .checkbox {
+  background: var(--button-hover-color);
+  border-color: var(--button-hover-color);
+}
 
-  .line-through {
-    text-decoration: line-through;
-  }
+.hidden-checkbox:checked + .checkbox::after {
+  color: white;
+  opacity: 1;
+}
+
+.task:hover .hidden-checkbox:not(:checked) + .checkbox::after {
+  color: var(--color-text);
+  opacity: 1;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-weight: bold;
+}
+
+.description {
+  padding-inline-start: 24px;
+}
+
+.line-through {
+  text-decoration: line-through;
+}
 </style>

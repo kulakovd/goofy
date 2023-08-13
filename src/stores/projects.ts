@@ -6,11 +6,11 @@ type ProjectInList = Pick<Project, 'id' | 'title'>
 
 export const useProjectsStore = defineStore('counter', () => {
   const projects = reactive([] as Array<ProjectInList>)
-  
+
   function addProject(project: ProjectInList) {
     projects.push({
-      id: "",
-      title: project.title,
+      id: '',
+      title: project.title
     })
   }
 
