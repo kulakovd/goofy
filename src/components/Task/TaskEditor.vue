@@ -60,6 +60,6 @@ function descBlurHandler(event: Event) {
 .description {
   height: fit-content;
   resize: none;
-  white-space: pre;
+  white-space: pre-wrap;
 }
 </style>

@@ -159,6 +159,7 @@ function dragEnd(ev: DragEvent) {
 
 .description {
   padding-inline-start: 24px;
+  white-space: pre-wrap;
 }
 
 .line-through {
