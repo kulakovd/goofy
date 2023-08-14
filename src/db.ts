@@ -17,13 +17,14 @@ export const tasksDB = localforage.createInstance({
 const dbInitKey = 'db-init'
 
 if (localStorage.getItem(dbInitKey) != 'true') {
-  ;['Today', 'This week', 'Later'].forEach((title) => {
+  ;['Today', 'This week', 'Later'].forEach((title, order) => {
     const id = uuidv4()
     listsDB.setItem<List>(id, {
       type: 'titled',
       id,
       title,
-      tasks: []
+      tasks: [],
+      order
     })
   })
 

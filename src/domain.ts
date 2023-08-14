@@ -12,6 +12,7 @@ export type TitledList = {
   id: string
   title: string
   tasks: Array<Task['id']>
+  order: number
 }
 
 export type Project = {
@@ -22,6 +23,7 @@ export type Project = {
   completed: boolean
   color: keyof typeof projectsPalette
   tasks: Array<Task['id']>
+  order: number
 }
 
 export type List = TitledList | Project

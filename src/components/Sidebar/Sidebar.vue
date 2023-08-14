@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { useMenuStore } from '@/stores/menu'
+import { useListsStore } from '@/stores/lists'
 import ListLink from './ListLink.vue'
 import ProjectLink from './ProjectLink.vue'
 import SidebarItem from './SidebarItem.vue'
 import { storeToRefs } from 'pinia'
 import { onMounted } from 'vue'
 
-const menuStore = useMenuStore()
-const { loadMenu } = menuStore
-const { titledLists, projects } = storeToRefs(menuStore)
+const listsStore = useListsStore()
+const { loadLists } = listsStore
+const { titledLists, projects } = storeToRefs(listsStore)
 
 onMounted(() => {
-  loadMenu()
+  loadLists()
 })
 </script>
 

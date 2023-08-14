@@ -1,31 +1,22 @@
 <script setup lang="ts">
 import Page from '@/components/Page.vue'
-import AddTaskButton from '@/components/AddTaskButton.vue'
-import PageTitle from '@/components/PageTitle.vue'
 import TaskList from '@/components/Task/TaskList.vue'
+import ListPageHead from '@/components/ListPageHead.vue'
+import { useListsStore } from '@/stores/lists';
+import { storeToRefs } from 'pinia';
+import PageTitle from '@/components/PageTitle.vue';
 
-const list = {
-  id: 'today',
-  title: 'Today'
-}
+const listsStore = useListsStore()
+const { openedList } = storeToRefs(listsStore)
 </script>
 
 <template>
   <Page>
-    <div class="head">
-      <PageTitle>{{ list.title }}</PageTitle>
-      <AddTaskButton />
-    </div>
+    <ListPageHead>
+      <PageTitle>
+        {{ openedList.title }}
+      </PageTitle>
+    </ListPageHead>
     <TaskList />
   </Page>
 </template>
-
-<style scoped>
-.head {
-  z-index: 1;
-  position: sticky;
-  top: 0;
-  background: white;
-  width: 100%;
-}
-</style>
