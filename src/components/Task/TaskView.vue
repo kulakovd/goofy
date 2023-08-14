@@ -154,7 +154,7 @@ function dragEnd(ev: DragEvent) {
 }
 
 .title {
-  font-weight: bold;
+  font-weight: 600;
 }
 
 .description {
