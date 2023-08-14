@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import ProjectColor from '@/components/Project/ProjectColor.vue'
-import SidebarItem from './SidebarItem.vue'
+import SidebarLink from './SidebarLink.vue';
+import ProjectColor from '@/components/Project/ProjectColor.vue';
 import { projectsPalette } from '@/assets/projects-palette'
 
 defineProps<{
@@ -9,10 +9,8 @@ defineProps<{
 </script>
 
 <template>
-  <router-link :to="`/project/${project.id}`">
-    <SidebarItem>
-      <ProjectColor :color="project.color" />
-      {{ project.title }}
-    </SidebarItem>
-  </router-link>
+  <SidebarLink :to="`/project/${project.id}`">
+    <ProjectColor :color="project.color" />
+    {{ project.title }}
+  </SidebarLink>
 </template>

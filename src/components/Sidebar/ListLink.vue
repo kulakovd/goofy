@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import SidebarItem from './SidebarItem.vue'
+import SidebarLink from './SidebarLink.vue';
 
 defineProps<{
   list: { id: string; title: string }
@@ -7,9 +7,7 @@ defineProps<{
 </script>
 
 <template>
-  <router-link :to="`/list/${list.id}`">
-    <SidebarItem>
-      {{ list.title }}
-    </SidebarItem>
-  </router-link>
+  <SidebarLink :to="`/list/${list.id}`">
+    {{ list.title }}
+  </SidebarLink>
 </template>
