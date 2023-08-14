@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import SidebarLink from './SidebarLink.vue';
-import ProjectColor from '@/components/Project/ProjectColor.vue';
+import SidebarLink from './SidebarLink.vue'
+import ProjectColor from '@/components/Project/ProjectColor.vue'
 import { projectsPalette } from '@/assets/projects-palette'
 
 defineProps<{

@@ -27,12 +27,7 @@ function descBlurHandler(event: Event) {
 
 <template>
   <div class="editor">
-    <div
-      class="title input"
-      contenteditable="true"
-      placeholder="Title"
-      @blur="titleBlurHandler"
-    >
+    <div class="title input" contenteditable="true" placeholder="Title" @blur="titleBlurHandler">
       {{ title }}
     </div>
     <div

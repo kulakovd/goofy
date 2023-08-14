@@ -2,7 +2,7 @@
 import Button from '@/components/Button.vue'
 
 defineProps<{
-  saveText?: string 
+  saveText?: string
 }>()
 
 defineEmits<{

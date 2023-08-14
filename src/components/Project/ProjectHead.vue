@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import ListPageHead from '@/components/ListPageHead.vue';
-import PageTitle from '@/components/PageTitle.vue';
-import ProjectColor from '@/components/Project/ProjectColor.vue';
-import EditorControls from '@/components/EditorControls.vue';
-import ProjectColorPicker from '@/components/Project/ProjectColorPicker.vue';
+import ListPageHead from '@/components/ListPageHead.vue'
+import PageTitle from '@/components/PageTitle.vue'
+import ProjectColor from '@/components/Project/ProjectColor.vue'
+import EditorControls from '@/components/EditorControls.vue'
+import ProjectColorPicker from '@/components/Project/ProjectColorPicker.vue'
 import { useListsStore } from '@/stores/lists'
 import { storeToRefs } from 'pinia'
-import { computed, ref, watch } from 'vue';
-import type { Project } from '@/domain';
+import { computed, ref, watch } from 'vue'
+import type { Project } from '@/domain'
 
 const listsStore = useListsStore()
 const { openedList } = storeToRefs(listsStore)
@@ -42,23 +42,19 @@ function save() {
   const title = editorRef.value?.textContent ?? ''
   listsStore.updateProject(openedList.value.id, { title, color: color.value })
 }
+
+function choseColor() {
+  editing.value = true
+  choosingColor.value = true
+}
 </script>
 
 <template>
   <ListPageHead>
-    <div class="title-block" :class="{ 'editing': editing }">
+    <div class="title-block" :class="{ editing: editing }">
       <PageTitle>
-        <ProjectColorPicker
-          v-if="choosingColor"
-          :color="color"
-          @update:color="selectColor"
-        />
-        <ProjectColor
-          v-else
-          :color="color" 
-          size="large"
-          @click="editing = true; choosingColor = true"
-        />
+        <ProjectColorPicker v-if="choosingColor" :color="color" @update:color="selectColor" />
+        <ProjectColor v-else :color="color" size="large" @click="choseColor" />
         <span
           ref="editorRef"
           class="title-editor"

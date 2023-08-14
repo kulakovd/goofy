@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import SidebarLink from './SidebarLink.vue';
+import SidebarLink from './SidebarLink.vue'
 
 defineProps<{
   list: { id: string; title: string }

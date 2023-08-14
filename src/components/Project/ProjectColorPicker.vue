@@ -27,7 +27,6 @@ defineEmits<{
 </template>
 
 <style scoped>
-
 .colors {
   display: flex;
   flex-wrap: wrap;
