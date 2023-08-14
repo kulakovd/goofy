@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ProjectColor from '@/components/ProjectColor.vue'
+import ProjectColor from '@/components/Project/ProjectColor.vue'
 import SidebarItem from './SidebarItem.vue'
 import { projectsPalette } from '@/assets/projects-palette'
 

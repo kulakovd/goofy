@@ -12,5 +12,6 @@ h1 {
   font-size: 1.5em;
   font-weight: bold;
   align-items: center;
+  gap: 8px;
 }
 </style>

@@ -14,15 +14,19 @@ textarea {
   display: block;
 }
 
-a,
-.green {
+a {
   text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
+  color: var(--primary-color);
   transition: 0.4s;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
+[contenteditable]:focus {
+  outline: none;
+}
+
+[contenteditable][placeholder]:empty::before {
+  content: attr(placeholder);
+  color: var(--color-text);
+  opacity: 0.5;
+  cursor: text;
 }

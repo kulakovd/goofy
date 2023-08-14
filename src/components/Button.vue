@@ -1,12 +1,11 @@
 <script setup lang="ts">
 defineProps<{
   type?: 'primary' | 'secondary' | 'danger'
-  onClick?: () => void
 }>()
 </script>
 
 <template>
-  <button type="button" class="button" :class="type ?? 'primary'" @click="onClick">
+  <button type="button" class="button" :class="type ?? 'primary'">
     <slot />
   </button>
 </template>
@@ -15,7 +14,7 @@ defineProps<{
 .button {
   padding: 8px 16px;
   border: none;
-  border-radius: 4px;
+  border-radius: var(--border-radius);
   cursor: pointer;
   font-weight: bold;
 }

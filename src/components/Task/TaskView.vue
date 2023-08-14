@@ -5,7 +5,7 @@ import Button from '@/components/Button.vue'
 import Drag from '@/components/Task/Drag.vue'
 import { ref } from 'vue'
 
-const props = defineProps<{
+defineProps<{
   task: Task
 }>()
 
@@ -62,7 +62,7 @@ function dragEnd(ev: DragEvent) {
 <style scoped>
 .task-view {
   position: relative;
-  border-radius: 4px;
+  border-radius: var(--border-radius);
 }
 
 .task-view:hover .drag {
@@ -81,7 +81,7 @@ function dragEnd(ev: DragEvent) {
   display: flex;
   gap: 8px;
   padding: 4px;
-  border-radius: 4px;
+  border-radius: var(--border-radius);
   cursor: pointer;
   align-items: flex-start;
   justify-content: space-between;

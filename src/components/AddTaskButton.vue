@@ -13,7 +13,7 @@ button {
   background: none;
   color: var(--text-color);
   border: none;
-  border-radius: 4px;
+  border-radius: var(--border-radius);
   padding: 8px;
   font-size: 1em;
   cursor: pointer;

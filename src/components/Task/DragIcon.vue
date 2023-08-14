@@ -20,7 +20,7 @@
 }
 
 .drag-icon-dot {
-  border-radius: 4px;
+  border-radius: var(--border-radius);
   width: 4px;
   height: 4px;
   background-color: rgb(110, 110, 110);

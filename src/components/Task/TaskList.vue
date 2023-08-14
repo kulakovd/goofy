@@ -3,7 +3,7 @@ import TaskView from './TaskView.vue'
 import { useTasksStore } from '@/stores/tasks'
 import { storeToRefs } from 'pinia'
 import TaskEditor from './TaskEditor.vue'
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onBeforeMount, onMounted, onUnmounted, onUpdated, ref, watch } from 'vue'
 import { throttle } from '@/utils/throttle'
 import { useRoute } from 'vue-router'
 
@@ -26,11 +26,17 @@ function preventDragOver(ev: DragEvent) {
   ev.preventDefault()
 }
 
-const listId = useRoute().params.id as string
+const route = useRoute()
+
+onBeforeMount(() => {
+  loadTasks(route.params.id as string)
+
+  watch(route, () => {
+    loadTasks(route.params.id as string)
+  })
+})
 
 onMounted(() => {
-  loadTasks(listId)
-
   updateListLeftTop()
 
   document.addEventListener('dragover', preventDragOver)

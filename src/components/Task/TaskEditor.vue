@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import Button from '@/components/Button.vue'
-import { useTasksStore } from '@/stores/tasks'
+import EditorControls from '@/components/EditorControls.vue'
 import { ref } from 'vue'
 
 const props = defineProps<{
@@ -28,7 +27,12 @@ function descBlurHandler(event: Event) {
 
 <template>
   <div class="editor">
-    <div class="title input" contenteditable="true" placeholder="Title" @blur="titleBlurHandler">
+    <div
+      class="title input"
+      contenteditable="true"
+      placeholder="Title"
+      @blur="titleBlurHandler"
+    >
       {{ title }}
     </div>
     <div
@@ -36,14 +40,14 @@ function descBlurHandler(event: Event) {
       contenteditable="true"
       placeholder="Description"
       @blur="descBlurHandler"
-      v-html="description"
-    />
-    <div class="controls">
-      <Button type="secondary" @click="$emit('cancel')"> Cancel </Button>
-      <Button @click="$emit('save', { title, description })">
-        {{ mode === 'create' ? 'Add' : 'Save' }}
-      </Button>
+    >
+      {{ description }}
     </div>
+    <EditorControls
+      :save-text="mode === 'create' ? 'Add' : 'Save'"
+      @cancel="$emit('cancel')"
+      @save="$emit('save', { title, description })"
+    />
   </div>
 </template>
 
@@ -51,23 +55,7 @@ function descBlurHandler(event: Event) {
 .editor {
   padding: 8px;
   border: 1px solid var(--color-text);
-  border-radius: 4px;
-}
-
-.input::placeholder {
-  font-weight: normal;
-  color: var(--color-text);
-  opacity: 0.5;
-}
-
-.input:focus {
-  outline: none;
-}
-
-.input[placeholder]:empty::before {
-  content: attr(placeholder);
-  color: var(--color-text);
-  opacity: 0.5;
+  border-radius: var(--border-radius);
 }
 
 .title {
@@ -78,11 +66,5 @@ function descBlurHandler(event: Event) {
   height: fit-content;
   resize: none;
   white-space: pre;
-}
-
-.controls {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
 }
 </style>

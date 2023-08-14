@@ -10,7 +10,7 @@ import DragIcon from '@/components/Task/DragIcon.vue'
 
 <style scoped>
 .drag {
-  border-radius: 4px;
+  border-radius: var(--border-radius);
   cursor: grab;
   position: absolute;
   top: 0;

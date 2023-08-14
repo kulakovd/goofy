@@ -42,6 +42,7 @@
   --menu-hover-bg: rgba(200, 200, 200, 0.2);
 
   --click-effect: scale(0.95);
+  --border-radius: 4px;
 }
 
 @media (prefers-color-scheme: dark) {

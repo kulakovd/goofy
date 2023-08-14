@@ -11,11 +11,12 @@
   font-size: 1em;
   color: var(--color-text);
   display: flex;
+  gap: 8px;
   align-items: center;
   cursor: pointer;
   padding: 4px 8px;
   height: 36px;
-  border-radius: 4px;
+  border-radius: var(--border-radius);
 }
 
 .sidebar-item:hover {

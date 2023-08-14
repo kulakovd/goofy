@@ -22,11 +22,10 @@ const bgColorCode = computed(() => {
   height: 8px;
   border-radius: 50%;
   background-color: var(--color-text);
-  margin-right: 8px;
 }
 
 .color-circle[size='large'] {
-  width: 12px;
-  height: 12px;
+  width: 16px;
+  height: 16px;
 }
 </style>

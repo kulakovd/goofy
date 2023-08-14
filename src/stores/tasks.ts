@@ -27,6 +27,9 @@ export const useTasksStore = defineStore('tasks', () => {
   }
 
   async function loadTasks(listId: string) {
+    tasks.splice(0, tasks.length)
+    editingTasksIds.clear()
+
     const list = await listsDB.getItem<List>(listId)
     if (list == null) {
       return
