@@ -100,6 +100,7 @@ const onDragOver = throttle((ev: DragEvent) => {
           class="list-item"
           :task="task"
           @dragstart="draggingTaskId = task.id"
+          @dragend="draggingTaskId = null"
         />
       </div>
     </div>
