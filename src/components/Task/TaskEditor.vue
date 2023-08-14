@@ -11,6 +11,7 @@ const props = defineProps<{
 defineEmits<{
   cancel: []
   save: [{ title: string; description: string }]
+  delete: []
 }>()
 
 const title = ref(props.title ?? '')
@@ -39,7 +40,10 @@ function descBlurHandler(event: Event) {
       {{ description }}
     </div>
     <EditorControls
+      class="controls"
+      :show-delete="mode === 'edit'"
       :save-text="mode === 'create' ? 'Add' : 'Save'"
+      @delete="$emit('delete')"
       @cancel="$emit('cancel')"
       @save="$emit('save', { title, description })"
     />
@@ -61,5 +65,9 @@ function descBlurHandler(event: Event) {
   height: fit-content;
   resize: none;
   white-space: pre-wrap;
+}
+
+.controls {
+  margin-top: 8px;
 }
 </style>

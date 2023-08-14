@@ -8,9 +8,10 @@ import { useListsStore } from '@/stores/lists'
 import { storeToRefs } from 'pinia'
 import { computed, ref, watch } from 'vue'
 import type { Project } from '@/domain'
+import { useRouter } from 'vue-router'
 
 const listsStore = useListsStore()
-const { openedList } = storeToRefs(listsStore)
+const { openedList, firstListId } = storeToRefs(listsStore)
 
 const choosingColor = ref(false)
 const editing = ref(false)
@@ -19,6 +20,8 @@ const editorRef = ref<HTMLElement | null>(null)
 
 const newColor = ref<Project['color'] | null>(null)
 const color = computed<Project['color']>(() => newColor.value ?? openedList.value?.color ?? 'gray')
+
+const router = useRouter()
 
 function selectColor(color: Project['color']) {
   newColor.value = color
@@ -43,6 +46,13 @@ function save() {
   listsStore.updateProject(openedList.value.id, { title, color: color.value })
 }
 
+function deleteProject() {
+  if (openedList.value.id == null) return
+
+  listsStore.deleteProject(openedList.value.id)
+  router.push(firstListId.value ? `/list/${firstListId.value}` : '/')
+}
+
 function choseColor() {
   editing.value = true
   choosingColor.value = true
@@ -65,7 +75,13 @@ function choseColor() {
           {{ openedList.title }}
         </span>
       </PageTitle>
-      <EditorControls v-if="editing" @save="save" @cancel="cancelEditing" />
+      <EditorControls
+        v-if="editing"
+        :show-delete="true"
+        @save="save"
+        @cancel="cancelEditing"
+        @delete="deleteProject"
+      />
     </div>
   </ListPageHead>
 </template>

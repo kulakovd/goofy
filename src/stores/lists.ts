@@ -15,6 +15,8 @@ export const useListsStore = defineStore('lists', () => {
   const titledLists = reactive([] as Array<TitledList>)
   const projects = reactive([] as Array<Project>)
 
+  const firstListId = computed(() => titledLists[0]?.id)
+
   const openedListId = computed(() => openedList.id)
 
   async function loadLists() {
@@ -96,14 +98,29 @@ export const useListsStore = defineStore('lists', () => {
     listsDB.setItem(project.id, newProject)
   }
 
+  function deleteProject(id: string) {
+    const project = projects.find((list) => list.id === id)
+    if (project == null) return
+
+    projects.splice(projects.indexOf(project), 1)
+    listsDB.removeItem(project.id)
+
+    openedList.id = undefined
+    openedList.title = undefined
+    openedList.goal = undefined
+    openedList.color = undefined
+  }
+
   return {
     openedList,
     openedListId,
+    firstListId,
     titledLists,
     projects,
     createProject,
     loadLists,
     openList,
-    updateProject
+    updateProject,
+    deleteProject
   }
 })

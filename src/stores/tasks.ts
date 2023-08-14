@@ -87,6 +87,16 @@ export const useTasksStore = defineStore('tasks', () => {
     saveList()
   }
 
+  function deleteTask(id: Task['id']) {
+    const index = tasks.findIndex((t) => t.id === id)
+    tasks.splice(index, 1)
+    
+    editingTasksIds.delete(id)
+
+    tasksDB.removeItem(id)
+    saveList()
+  }
+
   function editTask(id: Task['id']) {
     editingTasksIds.add(id)
   }
@@ -157,6 +167,7 @@ export const useTasksStore = defineStore('tasks', () => {
     newTaskCreating,
     saveTask,
     saveNewTask,
+    deleteTask,
     editTask,
     cancelEditTask,
     addTask,

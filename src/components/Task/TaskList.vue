@@ -91,6 +91,7 @@ const onDragOver = throttle((ev: DragEvent) => {
           mode="edit"
           :title="task.title"
           :description="task.description ?? ''"
+          @delete="tasksStore.deleteTask(task.id)"
           @cancel="tasksStore.cancelEditTask(task.id)"
           @save="(upd) => tasksStore.saveTask(task.id, upd)"
         />
