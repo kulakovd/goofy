@@ -1,7 +1,7 @@
 import { listsDB } from '@/db'
 import type { List, TitledList, Project } from '@/domain'
 import { defineStore } from 'pinia'
-import { reactive } from 'vue'
+import { computed, reactive } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 
 export const useListsStore = defineStore('lists', () => {
@@ -14,6 +14,8 @@ export const useListsStore = defineStore('lists', () => {
 
   const titledLists = reactive([] as Array<TitledList>)
   const projects = reactive([] as Array<Project>)
+
+  const openedListId = computed(() => openedList.id)
 
   async function loadLists() {
     titledLists.splice(0, titledLists.length)
@@ -96,6 +98,7 @@ export const useListsStore = defineStore('lists', () => {
 
   return {
     openedList,
+    openedListId,
     titledLists,
     projects,
     createProject,

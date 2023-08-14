@@ -9,6 +9,7 @@ export const useTasksStore = defineStore('tasks', () => {
   const tasks = reactive([] as Array<Task>)
   const editingTasksIds = reactive(new Set<Task['id']>())
   const newTaskCreating = ref(false)
+  const draggingTaskId = ref<Task['id'] | null>(null)
 
   async function saveList() {
     if (openedListId.value == null) {
@@ -117,6 +118,38 @@ export const useTasksStore = defineStore('tasks', () => {
     saveList()
   }
 
+  async function putDraggingTaskToList(
+    toListId: List['id'],
+  ) {
+    const taskId = draggingTaskId.value
+    const fromListId = openedListId.value
+    if (fromListId == null || taskId == null) {
+      return
+    }
+
+    const fromList = await listsDB.getItem<List>(fromListId)
+    const toList = await listsDB.getItem<List>(toListId)
+    if (fromList == null || toList == null || fromListId === toListId) {
+      return
+    }
+
+    const fromListTasks = fromList.tasks.filter((t) => t !== taskId)
+    const toListTasks = [taskId, ...toList.tasks]
+
+    await listsDB.setItem<List>(fromListId, {
+      ...fromList,
+      tasks: fromListTasks
+    })
+
+    await listsDB.setItem<List>(toListId, {
+      ...toList,
+      tasks: toListTasks
+    })
+
+    const tasksIndex = tasks.findIndex((t) => t.id === taskId)
+    tasks.splice(tasksIndex, 1)
+  }
+
   return {
     loadTasks,
     tasks,
@@ -129,6 +162,8 @@ export const useTasksStore = defineStore('tasks', () => {
     addTask,
     cancelAddTask,
     toggleComplete,
-    reorderTasks
+    reorderTasks,
+    draggingTaskId,
+    putDraggingTaskToList
   }
 })

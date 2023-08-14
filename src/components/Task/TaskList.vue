@@ -3,18 +3,16 @@ import TaskView from './TaskView.vue'
 import { useTasksStore } from '@/stores/tasks'
 import { storeToRefs } from 'pinia'
 import TaskEditor from './TaskEditor.vue'
-import { onBeforeMount, onMounted, onUnmounted, onUpdated, ref, watch } from 'vue'
+import { onBeforeMount, onMounted, onUnmounted, ref, watch } from 'vue'
 import { throttle } from '@/utils/throttle'
 import { useRoute } from 'vue-router'
 
 const tasksStore = useTasksStore()
-const { tasks, newTaskCreating, editingTasksIds } = storeToRefs(tasksStore)
+const { tasks, newTaskCreating, editingTasksIds, draggingTaskId } = storeToRefs(tasksStore)
 const { reorderTasks, loadTasks } = tasksStore
 const dragList = ref<HTMLElement | null>(null)
 const dragListLeft = ref<number>(0)
 const dragListTop = ref<number>(0)
-
-const draggingTaskId = ref<string | null>(null)
 
 function updateListLeftTop() {
   const rect = dragList.value?.getBoundingClientRect()
@@ -48,7 +46,7 @@ onUnmounted(() => {
   window.removeEventListener('resize', updateListLeftTop)
 })
 
-const handleDragOver = throttle((ev: DragEvent) => {
+const onDragOver = throttle((ev: DragEvent) => {
   if (!dragList.value) return
 
   const tasksClone = [...tasks.value]
@@ -65,7 +63,7 @@ const handleDragOver = throttle((ev: DragEvent) => {
   const itemIndex = tasksClone.findIndex((task) => task.id === listItemId)
   const draggingTaskIndex = tasksClone.findIndex((task) => task.id === draggingTaskId.value)
 
-  if (itemIndex !== -1 && draggingTaskIndex != -1) {
+  if (itemIndex !== -1 && draggingTaskIndex != -1 && itemIndex !== draggingTaskIndex) {
     reorderTasks(itemIndex, draggingTaskIndex)
   }
 }, 16)
@@ -73,7 +71,7 @@ const handleDragOver = throttle((ev: DragEvent) => {
 
 <template>
   <Teleport to="#app-teleport">
-    <div class="drop-area" @dragover="handleDragOver($event)" />
+    <div class="drop-area" @dragover="onDragOver($event)" />
   </Teleport>
 
   <div class="list">
@@ -85,7 +83,7 @@ const handleDragOver = throttle((ev: DragEvent) => {
       @cancel="tasksStore.cancelAddTask"
       @save="tasksStore.saveNewTask"
     />
-    <div class="list" ref="dragList" @dragover="handleDragOver($event)">
+    <div class="list" ref="dragList" @dragover="onDragOver($event)">
       <div class="list-item-wrapper" v-for="task in tasks" :key="task.id">
         <TaskEditor
           v-if="editingTasksIds.has(task.id)"
