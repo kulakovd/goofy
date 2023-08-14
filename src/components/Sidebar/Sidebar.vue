@@ -1,30 +1,24 @@
 <script setup lang="ts">
+import { useMenuStore } from '@/stores/menu'
 import ListLink from './ListLink.vue'
 import ProjectLink from './ProjectLink.vue'
 import SidebarItem from './SidebarItem.vue'
-import { projectsPalette } from '@/assets/projects-palette'
+import { storeToRefs } from 'pinia'
+import { onMounted } from 'vue'
 
-const lists = [
-  { id: 'today', name: 'Today' },
-  { id: 'week', name: 'This week' },
-  { id: 'later', name: 'Later' }
-]
+const menuStore = useMenuStore()
+const { loadMenu } = menuStore
+const { titledLists, projects } = storeToRefs(menuStore)
 
-const projects: {
-  id: string
-  name: string
-  color: keyof typeof projectsPalette
-}[] = [
-  { id: '1', name: 'Project 1', color: 'blue' },
-  { id: '2', name: 'Project 2', color: 'red' },
-  { id: '3', name: 'Project 3', color: 'gray' }
-]
+onMounted(() => {
+  loadMenu()
+})
 </script>
 
 <template>
   <div class="sidebar">
     <!--Lists-->
-    <ListLink v-for="list in lists" :key="list.id" :list="list" />
+    <ListLink v-for="list in titledLists" :key="list.id" :list="list" />
     <!--Projects-->
     <SidebarItem class="projects-title">Projects</SidebarItem>
     <ProjectLink v-for="project in projects" :key="project.id" :project="project" />

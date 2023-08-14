@@ -4,7 +4,7 @@ import SidebarItem from './SidebarItem.vue'
 import { projectsPalette } from '@/assets/projects-palette'
 
 defineProps<{
-  project: { id: string; name: string; color: keyof typeof projectsPalette }
+  project: { id: string; title: string; color: keyof typeof projectsPalette }
 }>()
 </script>
 
@@ -12,7 +12,7 @@ defineProps<{
   <router-link :to="`/project/${project.id}`">
     <SidebarItem>
       <ProjectColor :color="project.color" />
-      {{ project.name }}
+      {{ project.title }}
     </SidebarItem>
   </router-link>
 </template>

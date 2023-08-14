@@ -1,3 +1,5 @@
+import type { projectsPalette } from './assets/projects-palette'
+
 export type Task = {
   id: string
   title: string
@@ -5,16 +7,21 @@ export type Task = {
   completed: boolean
 }
 
-export type List = {
+export type TitledList = {
+  type: 'titled'
   id: string
   title: string
   tasks: Array<Task['id']>
 }
 
 export type Project = {
+  type: 'project'
   id: string
   title: string
   goal: string
   completed: boolean
+  color: keyof typeof projectsPalette
   tasks: Array<Task['id']>
 }
+
+export type List = TitledList | Project

@@ -5,10 +5,11 @@ import { storeToRefs } from 'pinia'
 import TaskEditor from './TaskEditor.vue'
 import { onMounted, onUnmounted, ref } from 'vue'
 import { throttle } from '@/utils/throttle'
+import { useRoute } from 'vue-router'
 
 const tasksStore = useTasksStore()
 const { tasks, newTaskCreating, editingTasksIds } = storeToRefs(tasksStore)
-const { reorderTasks } = tasksStore
+const { reorderTasks, loadTasks } = tasksStore
 const dragList = ref<HTMLElement | null>(null)
 const dragListLeft = ref<number>(0)
 const dragListTop = ref<number>(0)
@@ -25,7 +26,11 @@ function preventDragOver(ev: DragEvent) {
   ev.preventDefault()
 }
 
+const listId = useRoute().params.id as string
+
 onMounted(() => {
+  loadTasks(listId)
+
   updateListLeftTop()
 
   document.addEventListener('dragover', preventDragOver)

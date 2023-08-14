@@ -2,14 +2,14 @@
 import SidebarItem from './SidebarItem.vue'
 
 defineProps<{
-  list: { id: string; name: string }
+  list: { id: string; title: string }
 }>()
 </script>
 
 <template>
   <router-link :to="`/list/${list.id}`">
     <SidebarItem>
-      {{ list.name }}
+      {{ list.title }}
     </SidebarItem>
   </router-link>
 </template>
