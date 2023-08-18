@@ -77,7 +77,7 @@ export const useListsStore = defineStore('lists', () => {
     return project
   }
 
-  function updateProject(
+  async function updateProject(
     id: string,
     updates: {
       title?: string
@@ -85,15 +85,16 @@ export const useListsStore = defineStore('lists', () => {
       color?: Project['color']
     }
   ) {
-    const project = projects.find((list) => list.id === id)
-    if (project == null) return
+    const project = await listsDB.getItem<Project>(id)
+    const index = projects.findIndex((list) => list.id === id)
+    if (project == null || index === -1) return
 
-    const newProject = {
+    const newProject: Project = {
       ...project,
       ...updates,
-      tasks: project.tasks.slice()
     }
-    projects.splice(projects.indexOf(project), 1, newProject)
+
+    projects.splice(index, 1, newProject)
 
     listsDB.setItem(project.id, newProject)
   }

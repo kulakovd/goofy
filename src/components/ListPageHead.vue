@@ -6,7 +6,6 @@ import { onMounted, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 
 const listsStore = useListsStore()
-const { openedList } = storeToRefs(listsStore)
 const route = useRoute()
 
 onMounted(() => {
