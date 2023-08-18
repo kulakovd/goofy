@@ -23,7 +23,6 @@ defineProps<{
 
 .button.primary {
   background-color: var(--color-primary);
-  color: white;
 }
 
 .button:active {
