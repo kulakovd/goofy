@@ -39,7 +39,7 @@ function createProject() {
 <style scoped>
 .sidebar {
   width: 256px;
-  background-color: var(--sidebar-color);
+  background-color: var(--color-sidebar);
   padding: 16px;
 }
 

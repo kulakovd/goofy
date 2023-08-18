@@ -23,7 +23,7 @@
 
 /* semantic color variables for this project */
 :root {
-  --primary-color: #db4c3f;
+  --color-primary: #db4c3f;
 
   --color-background: var(--vt-c-white);
   --color-background-soft: var(--vt-c-white-soft);
@@ -35,11 +35,11 @@
   --color-heading: var(--vt-c-text-light-1);
   --color-text: var(--vt-c-text-light-1);
 
-  --section-gap: 160px;
-
-  --sidebar-color: #fafafa;
-  --button-hover-color: var(--primary-color);
+  --color-sidebar: var(--color-background-soft);
+  --color-button-hover: var(--color-primary);
   --menu-hover-bg: rgba(200, 200, 200, 0.2);
+
+  --color-secondary-button-bg: var(--vt-c-white-mute);
 
   --click-effect: scale(0.95);
   --border-radius: 4px;
@@ -56,6 +56,8 @@
 
     --color-heading: var(--vt-c-text-dark-1);
     --color-text: var(--vt-c-text-dark-2);
+
+    --color-secondary-button-bg: var(--vt-c-black-mute);
   }
 }
 
@@ -65,6 +67,10 @@
   box-sizing: border-box;
   margin: 0;
   font-weight: normal;
+}
+
+html {
+  background: var(--color-background);
 }
 
 body {

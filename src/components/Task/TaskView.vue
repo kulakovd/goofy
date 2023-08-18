@@ -70,7 +70,7 @@ function dragEnd(ev: DragEvent) {
 }
 
 .dragging {
-  background: white;
+  background: var(--color-background);
 }
 
 .ghost {
@@ -134,8 +134,8 @@ function dragEnd(ev: DragEvent) {
 }
 
 .hidden-checkbox:checked + .checkbox {
-  background: var(--button-hover-color);
-  border-color: var(--button-hover-color);
+  background: var(--color-button-hover);
+  border-color: var(--color-button-hover);
 }
 
 .hidden-checkbox:checked + .checkbox::after {

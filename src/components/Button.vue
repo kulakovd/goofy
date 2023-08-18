@@ -17,10 +17,12 @@ defineProps<{
   border-radius: var(--border-radius);
   cursor: pointer;
   font-weight: bold;
+  background-color: var(--color-secondary-button-bg);
+  color: var(--color-text);
 }
 
 .button.primary {
-  background-color: var(--primary-color);
+  background-color: var(--color-primary);
   color: white;
 }
 

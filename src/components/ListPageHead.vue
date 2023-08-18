@@ -29,7 +29,7 @@ onMounted(() => {
   z-index: 1;
   position: sticky;
   top: 0;
-  background: white;
+  background: var(--color-background);
   width: 100%;
 }
 </style>

@@ -20,7 +20,7 @@ button {
 }
 
 button:hover {
-  color: var(--button-hover-color);
+  color: var(--color-button-hover);
 }
 
 button:active {
