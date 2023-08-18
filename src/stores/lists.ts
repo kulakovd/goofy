@@ -1,23 +1,35 @@
 import { listsDB } from '@/db'
 import type { List, TitledList, Project } from '@/domain'
 import { defineStore } from 'pinia'
-import { computed, reactive } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 
 export const useListsStore = defineStore('lists', () => {
-  const openedList = reactive<{
-    id?: string
-    title?: string
-    goal?: Project['goal']
-    color?: Project['color']
-  }>({})
-
   const titledLists = reactive([] as Array<TitledList>)
   const projects = reactive([] as Array<Project>)
 
   const firstListId = computed(() => titledLists[0]?.id)
 
-  const openedListId = computed(() => openedList.id)
+  const openedListId = ref<string | undefined>(undefined)
+
+  const openedList = computed<{
+    id?: string
+    title?: string
+    goal?: Project['goal']
+    color?: Project['color']
+  }>(() => {
+    const id = openedListId.value
+    const titledList = titledLists.find((list) => list.id === id)
+    const project = projects.find((list) => list.id === id)
+
+    if (titledList) {
+      return titledList
+    } else if (project) {
+      return project
+    } else {
+      return {}
+    }
+  })
 
   async function loadLists() {
     titledLists.splice(0, titledLists.length)
@@ -39,23 +51,7 @@ export const useListsStore = defineStore('lists', () => {
   }
 
   function openList(id: string) {
-    const titledList = titledLists.find((list) => list.id === id)
-    const project = projects.find((list) => list.id === id)
-
-    if (titledList) {
-      openedList.id = titledList.id
-      openedList.title = titledList.title
-    } else if (project) {
-      openedList.id = project.id
-      openedList.title = project.title
-      openedList.goal = project.goal
-      openedList.color = project.color
-    } else {
-      openedList.id = undefined
-      openedList.title = undefined
-      openedList.goal = undefined
-      openedList.color = undefined
-    }
+    openedListId.value = id
   }
 
   function createProject() {
@@ -106,10 +102,7 @@ export const useListsStore = defineStore('lists', () => {
     projects.splice(projects.indexOf(project), 1)
     listsDB.removeItem(project.id)
 
-    openedList.id = undefined
-    openedList.title = undefined
-    openedList.goal = undefined
-    openedList.color = undefined
+    openedListId.value = undefined
   }
 
   return {
